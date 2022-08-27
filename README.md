@@ -37,7 +37,14 @@ com.github.toanphan19/ksuid {:mvn/version "0.1.0"}
 
 ```clj
 (ksuid/new-random)
-;; get the encoded string representation
-(string (ksuid/new-random))
+=> {:timestamp 261641632,
+    :payload [-104, -49, ...],
+    :bytes [15, -104, 85, -96, -104, -49, ...]}
+
+;; Get the string representation
+(ksuid/string (ksuid/new-random))
 => "2DdhyDxLNUQWoag0Webut0ahEVc"
+;; Extract the time
+(ksuid/time-instant (ksuid/new-random))
+=> #object[java.time.Instant 0xda0dc02 "2022-08-27T23:17:06Z"]
 ```
