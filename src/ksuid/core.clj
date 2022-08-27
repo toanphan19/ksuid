@@ -41,20 +41,22 @@
       (.put payload)
       (.array)))
 
-(defn from-parts
-  [timestamp payload]
-  (let [bytes (new-bytes timestamp payload)]
-    (->KSUID timestamp payload bytes)))
-
 (defn new-random-with-time
   [time-instant]
   (let [timestamp (to-corrected-timestamp (.getEpochSecond time-instant))
         payload (generate-random-bytes 16)]
-    (from-parts timestamp payload)))
+    (let [bytes (new-bytes timestamp payload)]
+      (->KSUID timestamp payload bytes))))
 
 (defn new-random
   "Create a new KSUID."
   [] (new-random-with-time (java.time.Instant/now)))
+
+(defn from-parts
+  [time-instant payload]
+  (let [timestamp (to-corrected-timestamp (.getEpochSecond time-instant))
+        bytes (new-bytes timestamp payload)]
+    (->KSUID timestamp payload bytes)))
 
 (defn from-bytes
   [bytes]
@@ -94,5 +96,4 @@
   (new-random-with-time (java.time.Instant/ofEpochSecond 1400000001))
   (string (new-random))
   (time-instant (new-random))
-  (byte-array [15, -106, -30, -52, 104, -69, -49, -59, -19, 71, -29, 30, -109, -108, 21, 28, -48, 52, 70, 0])
-  (java.time.Instant/ofEpochMilli 261546700))
+  (from-parts (java.time.Instant/ofEpochSecond 1400000001) (byte-array [19, -96, 65, 35, -33, 100, -105, -61, 51, -121, 19, -22, -98, -109, -92, 29])))
