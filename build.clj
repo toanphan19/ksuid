@@ -1,12 +1,29 @@
 (ns build
   (:require [clojure.tools.build.api :as b]
-            [org.corfield.build :as bb]
-            [clojure.java.shell :as sh]
-            [clojure.string :as string]))
+            [org.corfield.build :as bb]))
 
-(def lib 'toanphan19/ksuid)
-(def version (some-> (sh/sh "git" "describe" "--tags" "--abbrev=0")
-                     :out
-                     (string/trim-newline)))
+(def lib 'com.github.toanphan19/ksuid)
+(def version (format "0.1.%s" (b/git-count-revs nil)))
 
-(println "version " version)
+(def class-dir "target/classes")
+(def basis (b/create-basis {:project "deps.edn"}))
+(def jar-file (format "target/%s-%s.jar" (name lib) version))
+
+(defn jar [_]
+  (println "Version:" version)
+  (bb/clean nil)
+  (println "Building jar...")
+  (b/write-pom {:class-dir class-dir
+                :lib lib
+                :version version
+                :basis basis
+                :src-dirs ["src"]})
+  (b/copy-dir {:src-dirs ["src" "resources"]
+               :target-dir class-dir})
+  (b/jar {:class-dir class-dir
+          :jar-file jar-file}))
+
+(defn deploy "Deploy to Clojars." [opts]
+  (-> opts
+      (assoc :lib lib :version version)
+      (bb/deploy)))
