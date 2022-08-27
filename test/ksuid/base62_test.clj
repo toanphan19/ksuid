@@ -1,6 +1,6 @@
 (ns ksuid.base62-test
-  (:require  [clojure.test :refer :all]
-             [ksuid.base62 :refer :all]))
+  (:require [clojure.test :refer :all]
+            [ksuid.base62 :refer :all]))
 
 (deftest encode-bytes-test
   (testing "Test encode base62")

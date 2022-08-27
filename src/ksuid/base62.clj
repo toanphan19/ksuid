@@ -1,6 +1,6 @@
 (ns ksuid.base62
-  (:require clojure.string)
-  (:require clojure.set))
+  (:require [clojure.string]
+            [clojure.set]))
 
 (def charset "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
 

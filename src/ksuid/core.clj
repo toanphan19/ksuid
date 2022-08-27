@@ -1,6 +1,6 @@
 (ns ksuid.core
-  (:require clojure.string)
-  (:require [ksuid.base62 :as base62]))
+  (:require [clojure.string]
+            [ksuid.base62 :as base62]))
 
 (comment
   "Description from https://github.com/segmentio/ksuid#how-do-ksuids-work:
