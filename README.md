@@ -1,5 +1,7 @@
 # KSUID
 
+[![Clojars Project](https://img.shields.io/clojars/v/com.github.toanphan19/ksuid.svg?include_prereleases)](https://clojars.org/com.github.toanphan19/ksuid)
+
 KSUID implemented in Clojure.
 
 ## What is a KSUID?
@@ -10,18 +12,32 @@ Read more [here](https://github.com/segmentio/ksuid) on why to use it over other
 
 ## Install
 
+Leiningen
+
+```sh
+[com.github.toanphan19/ksuid "0.1.0"]
 ```
-TODO
+
+Clojure CLI/deps.edn
+
+```sh
+com.github.toanphan19/ksuid {:mvn/version "0.1.0"}
 ```
 
 ## Usage
 
+### Import into your namespace
+
 ```clj
-;; In your ns statement:
 (ns my.ns
   (:require [ksuid.core :as ksuid]))
 ```
 
+### Generate a new KSUID
+
 ```clj
+(ksuid/new-random)
+;; get the encoded string representation
 (string (ksuid/new-random))
+=> "2DdhyDxLNUQWoag0Webut0ahEVc"
 ```
