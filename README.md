@@ -47,4 +47,10 @@ com.github.toanphan19/ksuid {:mvn/version "0.1.0"}
 ;; Extract the time
 (ksuid/time-instant (ksuid/new-random))
 => #object[java.time.Instant 0xda0dc02 "2022-08-27T23:17:06Z"]
+
+;; Decode a ksuid string
+(ksuid/from-string "2DdhyDxLNUQWoag0Webut0ahEVc")
+=> {:timestamp 261641632,
+    :payload [-104, -49, ...],
+    :bytes [15, -104, 85, -96, -104, -49, ...]}
 ```
