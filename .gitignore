@@ -1,4 +1,6 @@
 .calva
+.clj-kondo
+.lsp
 
 pom.xml
 pom.xml.asc
