@@ -26,13 +26,13 @@
     (str (clojure.string/join (repeat length-to-pad char)) s)))
 
 (defprotocol KSUIDProtocol
-  (string [this])
+  (to-string [this])
   (time-instant [this]))
 
 (defrecord KSUID [timestamp payload bytes]
   KSUIDProtocol
-  (string [ksuid] (-> (base62/encode-bytes (:bytes ksuid))
-                      (leftpad encoding-length "0")))
+  (to-string [ksuid] (-> (base62/encode-bytes (:bytes ksuid))
+                         (leftpad encoding-length "0")))
   (time-instant [ksuid] (-> (+ epoch-stamp (:timestamp ksuid))
                             (java.time.Instant/ofEpochSecond))))
 
@@ -98,7 +98,7 @@
 (comment
   (new-random)
   (new-random-with-time (java.time.Instant/ofEpochSecond 1400000001))
-  (string (new-random))
+  (to-string (new-random))
   (time-instant (new-random))
   (from-parts (java.time.Instant/ofEpochSecond 1400000001) (byte-array [19, -96, 65, 35, -33, 100, -105, -61, 51, -121, 19, -22, -98, -109, -92, 29]))
   (from-string  "2EBPQok6t9M6pFH8watHYNfs390")
