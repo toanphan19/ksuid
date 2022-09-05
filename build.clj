@@ -3,7 +3,8 @@
             [org.corfield.build :as bb]))
 
 (def lib 'com.github.toanphan19/ksuid)
-(def version (format "0.1.%s" (b/git-count-revs nil)))
+;; (def version (format "0.2.%s" (b/git-count-revs nil)))
+(def version "0.2.0")
 
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))

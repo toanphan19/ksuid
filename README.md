@@ -15,13 +15,13 @@ Read more [here](https://github.com/segmentio/ksuid) on why to use it over other
 Leiningen
 
 ```sh
-[com.github.toanphan19/ksuid "0.1.0"]
+[com.github.toanphan19/ksuid "0.2.0"]
 ```
 
 Clojure CLI/deps.edn
 
 ```sh
-com.github.toanphan19/ksuid {:mvn/version "0.1.0"}
+com.github.toanphan19/ksuid {:mvn/version "0.2.0"}
 ```
 
 ## Usage
