@@ -47,6 +47,11 @@ com.github.toanphan19/ksuid {:mvn/version "0.2.0"}
 ;; Extract the time
 (ksuid/time-instant (ksuid/new-random))
 => #object[java.time.Instant 0xda0dc02 "2022-08-27T23:17:06Z"]
+
+;; Comparison using their string representation
+(let [a (ksuid/new-random)
+      b (ksuid/new-random)]
+  (compare (ksuid/to-string a) (ksuid/to-string b)))
 ```
 
 ### KSUID from string

@@ -46,9 +46,7 @@
     bytes))
 
 (defn- new-bytes
-  "Create a new KSUID in byte-array. 
-   Use this if you only care about the underlying byte-array,
-   otherwise use ksuid()."
+  "Combine a timestamp and a payload into a byte-array."
   [timestamp payload]
   (-> (java.nio.ByteBuffer/allocate byte-length)
       (.putInt timestamp)
@@ -56,20 +54,23 @@
       (.array)))
 
 (defn from-parts
+  "Construct a KSUID from its components."
   [time-instant payload]
   (let [timestamp (to-corrected-timestamp (.getEpochSecond time-instant))
         bytes (new-bytes timestamp payload)]
     (->KSUID timestamp payload bytes)))
 
 (defn new-random-with-time
+  "Generate a new KSUID with a fixed time instant."
   [time-instant]
   (from-parts time-instant (generate-random-bytes 16)))
 
 (defn new-random
-  "Create a new KSUID."
+  "Generate a new KSUID."
   [] (new-random-with-time (java.time.Instant/now)))
 
 (defn from-bytes
+  "Construct a KSUID from its byte representation."
   [bytes]
   (let [timestamp (->> (take timestamp-byte-length bytes)
                        (byte-array)
@@ -78,11 +79,12 @@
     (->KSUID timestamp payload bytes)))
 
 (defn from-string
+  "Construct a KSUID from its base62-string representation."
   [s]
   (from-bytes (base62/decode-bytes s)))
 
 (defn valid?
-  "Check if a string is a valid KSUID."
+  "Check if a string represents a valid KSUID."
   [ksuid]
   (cond
     (not= (count ksuid) encoding-length) false
